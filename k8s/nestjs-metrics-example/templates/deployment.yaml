@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nestjs-metrics-ex
+  name: nestjs-metrics-ex
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nestjs-metrics-ex
+  template:
+    metadata:
+      labels:
+        app: nestjs-metrics-ex
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: /metrics
+        prometheus.io/port: "3000"
+    spec:
+      containers:
+      - image: holycow1991/nestjs-metrics-ex:latest
+        name: nestjs-metrics-ex
+        ports:
+        - containerPort: 3000
